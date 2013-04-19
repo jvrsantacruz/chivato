@@ -16,11 +16,8 @@ VAT_NUMBERS = (
     test_check_vat_bg.VAT_NUMBERS +
     test_check_vat_cl.VAT_NUMBERS +
     test_check_vat_co.VAT_NUMBERS +
+    test_check_vat_cy.VAT_NUMBERS +
     [
-        ('CY', '12345678F', True),
-        ('CY', '2345678F', False),
-        ('CY', 'A2345678F', False),
-        ('CY', '12345678A', False),
         ('CZ', '1234567', False),
         ('CZ', '12345679', True),
         ('CZ', 'A2345679', False),
