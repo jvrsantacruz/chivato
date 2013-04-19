@@ -19,12 +19,8 @@ VAT_NUMBERS = (
     test_check_vat_cy.VAT_NUMBERS +
     test_check_vat_cz.VAT_NUMBERS +
     test_check_vat_de.VAT_NUMBERS +
+    test_check_vat_dk.VAT_NUMBERS +
     [
-        ('DK', '12345674', True),
-        ('DK', '1234564', False),
-        ('DK', 'A2345674', False),
-        ('DK', '02345674', False),
-        ('DK', '12345679', False),
         ('EE', '123456780', True),
         ('EE', '1234567890', False),
         ('EE', 'A23456780', False),
