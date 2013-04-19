@@ -2,17 +2,13 @@
 
 __version__ = '0.0.1'
 
+from . import staticdata
 from .helpers import _posint, mult_add, mod1110
 
 
 def countries():
-    '''
-    Return the list of country's codes that have check function
-    '''
-    res = [x.replace('check_vat_', '').upper() for x in globals()
-           if x.startswith('check_vat_')]
-    res.sort()
-    return res
+    ''' Return the list of country codes that have check function '''
+    return staticdata.COUNTRIES
 
 
 def check_vat_at(vat):
