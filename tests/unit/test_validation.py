@@ -1,3 +1,4 @@
+#-*- coding: utf-8 -*-
 ''' Unit test for chivato '''
 
 from hamcrest import assert_that, is_
