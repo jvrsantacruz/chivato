@@ -5,14 +5,10 @@ from hamcrest import assert_that, is_
 
 import chivato
 
+from . import test_check_vat_at
 
-VAT_NUMBERS = [
-    ('AT', 'U12345675', True),
-    ('AT', 'U123456789', False),
-    ('AT', 'A12345675', False),
-    ('AT', 'UA2345675', False),
-    ('AT', 'U12345620', True),
-    ('AT', 'U12345678', False),
+
+VAT_NUMBERS = test_check_vat_at.VAT_NUMBERS + [
     ('AL', 'K99999999L', True),
     ('AL', 'K999999999L', False),
     ('AL', 'AA9999999L', False),
