@@ -13,17 +13,8 @@ VAT_NUMBERS = (
     test_check_vat_al.VAT_NUMBERS +
     test_check_vat_ar.VAT_NUMBERS +
     test_check_vat_be.VAT_NUMBERS +
+    test_check_vat_bg.VAT_NUMBERS +
     [
-        ('BG', '1234567892', True),
-        ('BG', '175074752', True),
-        ('BG', '131202360', True),
-        ('BG', '040683212', True),
-        ('BG', '12345678921', False),
-        ('BG', 'A234567892', False),
-        ('BG', '2234567892', False),
-        ('BG', '1001000000', True),
-        ('BG', '0000003000', False),
-        ('BG', '1234567890', False),
         ('CL', '334441113', True),
         ('CL', 'A34441113', False),
         ('CL', '334441180', True),
