@@ -1333,6 +1333,11 @@ def check_vat_ru(vat):
     return True
 
 
+def parse_vat(vat):
+    code, number = vat[:2], vat[2:]
+    return code.lower(), number
+
+
 def check_vat(vat):
     '''
     Check VAT number.
