@@ -5,15 +5,14 @@ from hamcrest import assert_that, is_
 
 import chivato
 
-from . import test_check_vat_at, test_check_vat_al
+from . import *
 
 
 VAT_NUMBERS = (
     test_check_vat_at.VAT_NUMBERS +
     test_check_vat_al.VAT_NUMBERS +
+    test_check_vat_ar.VAT_NUMBERS +
     [
-        ('AR', '00000000000', True),
-        ('AR', '00000000001', False),
         ('BE', '0123456749', True),
         ('BE', '0897290877', True),
         ('BE', '01234567490', False),
