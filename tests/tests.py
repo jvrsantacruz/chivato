@@ -197,10 +197,12 @@ class TestValidation(object):
         Test VAT numbers
         '''
         for code, number, expected_result in VAT_NUMBERS:
-            vat_number = code + number
-            validation_result = chivato.check_vat(vat_number)
+            yield self.validation, code + number, expected_result
 
-            assert_that(validation_result, is_(expected_result), vat_number)
+    def validation(self, vat_number, expected_result):
+        validation_result = chivato.check_vat(vat_number)
+
+        assert_that(validation_result, is_(expected_result), vat_number)
 
     def test_vies(self):
         '''
