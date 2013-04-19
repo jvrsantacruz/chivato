@@ -1333,20 +1333,37 @@ def check_vat_ru(vat):
     return True
 
 
+VALIDATORS = {
+    'al': check_vat_al, 'ar': check_vat_ar, 'at': check_vat_at,
+    'be': check_vat_be, 'bg': check_vat_bg, 'cl': check_vat_cl,
+    'co': check_vat_co, 'cy': check_vat_cy, 'cz': check_vat_cz,
+    'de': check_vat_de, 'dk': check_vat_dk, 'ee': check_vat_ee,
+    'el': check_vat_el, 'es': check_vat_es, 'fi': check_vat_fi,
+    'fr': check_vat_fr, 'gb': check_vat_gb, 'gr': check_vat_gr,
+    'hr': check_vat_hr, 'hu': check_vat_hu, 'ie': check_vat_ie,
+    'it': check_vat_it, 'lt': check_vat_lt, 'lu': check_vat_lu,
+    'lv': check_vat_lv, 'mt': check_vat_mt, 'nl': check_vat_nl,
+    'pl': check_vat_pl, 'pt': check_vat_pt, 'ro': check_vat_ro,
+    'ru': check_vat_ru, 'se': check_vat_se, 'si': check_vat_si,
+    'sk': check_vat_sk, 'sm': check_vat_sm, 'ua': check_vat_ua,
+    'uk': check_vat_uk
+}
+
+
 def parse_vat(vat):
     code, number = vat[:2], vat[2:]
     return code.lower(), number
 
 
-def check_vat(vat, parser=parse_vat):
+def check_vat(vat, parser=parse_vat, validators=VALIDATORS):
     '''
     Check VAT number.
     '''
     code, number = parser(vat)
 
-    try:
-        checker = globals()['check_vat_%s' % code]
-    except KeyError:
+    checker = validators.get(code)
+
+    if checker is None:
         return False
 
     return checker(number)
