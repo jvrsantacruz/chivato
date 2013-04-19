@@ -1338,12 +1338,11 @@ def parse_vat(vat):
     return code.lower(), number
 
 
-def check_vat(vat):
+def check_vat(vat, parser=parse_vat):
     '''
     Check VAT number.
     '''
-    code = vat[:2].lower()
-    number = vat[2:]
+    code, number = parser(vat)
 
     try:
         checker = globals()['check_vat_%s' % code]
