@@ -12,13 +12,8 @@ VAT_NUMBERS = (
     test_check_vat_at.VAT_NUMBERS +
     test_check_vat_al.VAT_NUMBERS +
     test_check_vat_ar.VAT_NUMBERS +
+    test_check_vat_be.VAT_NUMBERS +
     [
-        ('BE', '0123456749', True),
-        ('BE', '0897290877', True),
-        ('BE', '01234567490', False),
-        ('BE', '9123456749', False),
-        ('BE', '0A23456749', False),
-        ('BE', '0123456700', False),
         ('BG', '1234567892', True),
         ('BG', '175074752', True),
         ('BG', '131202360', True),
