@@ -1232,15 +1232,3 @@ def check_vat(vat):
     except KeyError:
         return False
     return checker(number)
-
-
-def check_vies(vat):
-    '''
-    Check VAT number for EU member state using the SOAP Service
-    '''
-    from suds.client import Client
-    client = Client(VIES_URL)
-    code = vat[:2]
-    number = vat[2:]
-    res = client.service.checkVat(countryCode=code, vatNumber=number)
-    return bool(res['valid'])

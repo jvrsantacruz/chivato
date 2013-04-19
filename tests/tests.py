@@ -182,10 +182,6 @@ VAT_NUMBERS = [
     ('', '12456789', False),
 ]
 
-VIES_NUMBERS = [
-    'BE0897290877',
-]
-
 
 class TestValidation(object):
     '''
@@ -203,13 +199,6 @@ class TestValidation(object):
         validation_result = chivato.check_vat(vat_number)
 
         assert_that(validation_result, is_(expected_result), vat_number)
-
-    def test_vies(self):
-        '''
-        Test vies
-        for vat in VIES_NUMBERS:
-            assert_that(chivato.check_vies(vat))
-        '''
 
     def test_countries(self):
         '''
