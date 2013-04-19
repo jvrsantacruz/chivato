@@ -1,10 +1,6 @@
-#This file is part of chivato.  The COPYRIGHT file at the top level of
-#this repository contains the full copyright notices and license terms.
-'''
-Unit test for chivato
-'''
+''' Unit test for chivato '''
 
-from hamcrest import *
+from hamcrest import assert_that, is_
 
 import chivato
 
@@ -184,14 +180,7 @@ VAT_NUMBERS = [
 
 
 class TestValidation(object):
-    '''
-    Test Case for chivato
-    '''
-
     def test_vat_numbers(self):
-        '''
-        Test VAT numbers
-        '''
         for code, number, expected_result in VAT_NUMBERS:
             yield self.validation, code + number, expected_result
 
@@ -201,7 +190,4 @@ class TestValidation(object):
         assert_that(validation_result, is_(expected_result), vat_number)
 
     def test_countries(self):
-        '''
-        Test countries
-        '''
         chivato.countries()
