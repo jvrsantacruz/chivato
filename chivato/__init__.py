@@ -11,25 +11,25 @@ def countries():
 
 
 VALIDATORS = {
-    'al': validators.check_vat_al, 'ar': validators.check_vat_ar,
-    'at': validators.check_vat_at, 'be': validators.check_vat_be,
-    'bg': validators.check_vat_bg, 'cl': validators.check_vat_cl,
-    'co': validators.check_vat_co, 'cy': validators.check_vat_cy,
-    'cz': validators.check_vat_cz, 'de': validators.check_vat_de,
-    'dk': validators.check_vat_dk, 'ee': validators.check_vat_ee,
-    'el': validators.check_vat_el, 'es': validators.check_vat_es,
-    'fi': validators.check_vat_fi, 'fr': validators.check_vat_fr,
-    'gb': validators.check_vat_gb, 'gr': validators.check_vat_gr,
-    'hr': validators.check_vat_hr, 'hu': validators.check_vat_hu,
-    'ie': validators.check_vat_ie, 'it': validators.check_vat_it,
-    'lt': validators.check_vat_lt, 'lu': validators.check_vat_lu,
-    'lv': validators.check_vat_lv, 'mt': validators.check_vat_mt,
-    'nl': validators.check_vat_nl, 'pl': validators.check_vat_pl,
-    'pt': validators.check_vat_pt, 'ro': validators.check_vat_ro,
-    'ru': validators.check_vat_ru, 'se': validators.check_vat_se,
-    'si': validators.check_vat_si, 'sk': validators.check_vat_sk,
-    'sm': validators.check_vat_sm, 'ua': validators.check_vat_ua,
-    'uk': validators.check_vat_uk
+    'al': validators.albania,        'ar': validators.argentina,
+    'at': validators.austria,        'be': validators.belgium,
+    'bg': validators.bulgaria,       'cl': validators.chile,
+    'co': validators.colombia,       'cy': validators.cyprus,
+    'cz': validators.czech_republic, 'de': validators.germany,
+    'dk': validators.denmark,        'ee': validators.estonia,
+    'el': validators.greece,         'es': validators.spain,
+    'fi': validators.finland,        'fr': validators.france,
+    'gb': validators.united_kingdom, 'gr': validators.greece,
+    'hr': validators.croatia,        'hu': validators.hungary,
+    'ie': validators.ireland,        'it': validators.italy,
+    'lt': validators.lithuania,      'lu': validators.luxembourg,
+    'lv': validators.latvia,         'mt': validators.malta,
+    'nl': validators.netherlands,    'pl': validators.poland,
+    'pt': validators.portugal,       'ro': validators.romania,
+    'ru': validators.russia,         'se': validators.sweden,
+    'si': validators.slovenia,       'sk': validators.slovakia,
+    'sm': validators.san_marino,     'ua': validators.ukraine,
+    'uk': validators.united_kingdom
 }
 
 

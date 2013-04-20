@@ -3,7 +3,7 @@
 from .helpers import _posint, mult_add, mod1110
 
 
-def check_vat_at(vat):
+def austria(vat):
     '''Check Austria VAT number.'''
     if len(vat) != 9:
         return False
@@ -33,7 +33,7 @@ def check_vat_at(vat):
     return True
 
 
-def check_vat_al(vat):
+def albania(vat):
     '''Check Albania VAT number.'''
     if len(vat) != 10:
         return False
@@ -52,7 +52,7 @@ def check_vat_al(vat):
     return True
 
 
-def check_vat_ar(vat):
+def argentina(vat):
     '''Check Argentina VAT number.'''
     if len(vat) != 11:
         return False
@@ -71,7 +71,7 @@ def check_vat_ar(vat):
     return aux == int(vat[10])
 
 
-def check_vat_be(vat):
+def belgium(vat):
     '''Check Belgium VAT number.'''
     if len(vat) != 10:
         return False
@@ -91,7 +91,7 @@ def check_vat_be(vat):
     return True
 
 
-def check_vat_bg(vat):
+def bulgaria(vat):
     '''Check Bulgaria VAT number.'''
     if len(vat) == 9:
         #XXX don't know any rules for this length
@@ -126,7 +126,7 @@ def check_vat_bg(vat):
     return True
 
 
-def check_vat_cl(rut):
+def chile(rut):
     '''Check Chile RUT number.'''
     try:
         _posint(rut[:-1])
@@ -146,7 +146,7 @@ def check_vat_cl(rut):
         return check == int(rut[-1])
 
 
-def check_vat_co(rut):
+def colombia(rut):
     '''Check Colombian RUT number.'''
     if len(rut) != 10:
         return False
@@ -167,7 +167,7 @@ def check_vat_co(rut):
         return int(rut[-1]) == sum % 11
 
 
-def check_vat_cy(vat):
+def cyprus(vat):
     '''Check Cyprus VAT number.'''
     if len(vat) != 9:
         return False
@@ -195,7 +195,7 @@ def check_vat_cy(vat):
     return True
 
 
-def check_vat_cz(vat):
+def czech_republic(vat):
     '''Check Czech Republic VAT number.'''
     if len(vat) not in (8, 9, 10):
         return False
@@ -298,7 +298,7 @@ def check_vat_cz(vat):
     return True
 
 
-def check_vat_de(vat):
+def germany(vat):
     '''Check Germany VAT number .'''
     if len(vat) != 9:
         return False
@@ -325,7 +325,7 @@ def check_vat_de(vat):
     return True
 
 
-def check_vat_dk(vat):
+def denmark(vat):
     '''Check Denmark VAT number.'''
     if len(vat) != 8:
         return False
@@ -347,7 +347,7 @@ def check_vat_dk(vat):
     return True
 
 
-def check_vat_ee(vat):
+def estonia(vat):
     '''Check Estonia VAT number.'''
     if len(vat) != 9:
         return False
@@ -371,7 +371,7 @@ def check_vat_ee(vat):
     return True
 
 
-def check_vat_es(vat):
+def spain(vat):
     '''Check Spain VAT number.'''
     if len(vat) != 9:
         return False
@@ -453,7 +453,7 @@ def check_vat_es(vat):
         return True
 
 
-def check_vat_fi(vat):
+def finland(vat):
     '''Check Finland VAT number.'''
     if len(vat) != 8:
         return False
@@ -479,7 +479,7 @@ def check_vat_fi(vat):
     return True
 
 
-def check_vat_fr(vat):
+def france(vat):
     '''Check France VAT number.'''
     if len(vat) != 11:
         return False
@@ -526,7 +526,7 @@ def check_vat_fr(vat):
         return True
 
 
-def check_vat_gb(vat):
+def united_kingdom(vat):
     '''Check United Kingdom VAT number.'''
     if len(vat) == 5:
         try:
@@ -616,7 +616,7 @@ def check_vat_gb(vat):
     return False
 
 
-def check_vat_gr(vat):
+def greece(vat):
     '''Check Greece VAT number.'''
     try:
         _posint(vat)
@@ -655,12 +655,7 @@ def check_vat_gr(vat):
     return False
 
 
-def check_vat_el(vat):
-    '''Check Greece VAT number.'''
-    return check_vat_gr(vat)
-
-
-def check_vat_hr(vat):
+def croatia(vat):
     '''Check Croatia VAT number.'''
     if len(vat) != 11:
         return False
@@ -676,7 +671,7 @@ def check_vat_hr(vat):
     return True
 
 
-def check_vat_hu(vat):
+def hungary(vat):
     '''Check Hungary VAT number.'''
     if len(vat) != 8:
         return False
@@ -702,7 +697,7 @@ def check_vat_hu(vat):
     return True
 
 
-def check_vat_ie(vat):
+def ireland(vat):
     '''Check Ireland VAT number.'''
     if len(vat) != 8:
         return False
@@ -750,7 +745,7 @@ def check_vat_ie(vat):
         return True
 
 
-def check_vat_it(vat):
+def italy(vat):
     '''Check Italy VAT number.'''
     if len(vat) != 11:
         return False
@@ -783,7 +778,7 @@ def check_vat_it(vat):
     return True
 
 
-def check_vat_lt(vat):
+def lithuania(vat):
     '''Check Lithuania VAT number.'''
     try:
         _posint(vat)
@@ -837,7 +832,7 @@ def check_vat_lt(vat):
     return False
 
 
-def check_vat_lu(vat):
+def luxembourg(vat):
     '''Check Luxembourg VAT number.'''
     if len(vat) != 8:
         return False
@@ -856,7 +851,7 @@ def check_vat_lu(vat):
     return True
 
 
-def check_vat_lv(vat):
+def latvia(vat):
     '''Check Latvia VAT number.'''
     if len(vat) != 11:
         return False
@@ -909,7 +904,7 @@ def check_vat_lv(vat):
         return True
 
 
-def check_vat_mt(vat):
+def malta(vat):
     '''Check Malta VAT number.'''
     if len(vat) != 8:
         return False
@@ -931,7 +926,7 @@ def check_vat_mt(vat):
     return True
 
 
-def check_vat_nl(vat):
+def netherlands(vat):
     '''Check Netherlands VAT number.'''
     if len(vat) != 12:
         return False
@@ -961,7 +956,7 @@ def check_vat_nl(vat):
     return True
 
 
-def check_vat_pl(vat):
+def poland(vat):
     '''Check Poland VAT number.'''
     if len(vat) != 10:
         return False
@@ -984,7 +979,7 @@ def check_vat_pl(vat):
     return True
 
 
-def check_vat_pt(vat):
+def portugal(vat):
     '''Check Portugal VAT number.'''
     if len(vat) != 9:
         return False
@@ -1010,7 +1005,7 @@ def check_vat_pt(vat):
     return True
 
 
-def check_vat_ro(vat):
+def romania(vat):
     '''Check Romania VAT number.'''
     try:
         _posint(vat)
@@ -1072,7 +1067,7 @@ def check_vat_ro(vat):
     return False
 
 
-def check_vat_se(vat):
+def sweden(vat):
     '''Check Sweden VAT number.'''
     if len(vat) != 12:
         return False
@@ -1099,7 +1094,7 @@ def check_vat_se(vat):
     return True
 
 
-def check_vat_si(vat):
+def slovenia(vat):
     '''Check Slovenia VAT number.'''
     if len(vat) != 8:
         return False
@@ -1128,7 +1123,7 @@ def check_vat_si(vat):
     return True
 
 
-def check_vat_sk(vat):
+def slovakia(vat):
     '''Check Slovakia VAT number.'''
     try:
         _posint(vat)
@@ -1177,7 +1172,7 @@ def check_vat_sk(vat):
     return True
 
 
-def check_vat_sm(vat):
+def san_marino(vat):
     '''Check San Marino VAT number.'''
     if len(vat) != 5:
         return False
@@ -1190,7 +1185,7 @@ def check_vat_sm(vat):
     return True
 
 
-def check_vat_ua(vat):
+def ukraine(vat):
     '''Check Ukraine VAT number.'''
     if len(vat) != 8:
         return False
@@ -1203,12 +1198,7 @@ def check_vat_ua(vat):
     return True
 
 
-def check_vat_uk(vat):
-    '''Check United Kingdom VAT number.'''
-    return check_vat_gb(vat)
-
-
-def check_vat_ru(vat):
+def russia(vat):
     '''Check Russia VAT number.'''
     if len(vat) != 10 and len(vat) != 12:
         return False
