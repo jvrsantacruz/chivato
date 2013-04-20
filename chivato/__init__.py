@@ -6,7 +6,7 @@ from . import staticdata, validators
 
 
 def countries():
-    ''' Return the list of country codes that have check function '''
+    '''Return the list of country codes that have check function'''
     return staticdata.COUNTRIES
 
 
@@ -39,9 +39,6 @@ def parse_vat(vat):
 
 
 def check_vat(vat, parser=parse_vat, validators=VALIDATORS):
-    '''
-    Check VAT number.
-    '''
     code, number = parser(vat)
 
     checker = validators.get(code)

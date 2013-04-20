@@ -4,9 +4,7 @@ from .helpers import _posint, mult_add, mod1110
 
 
 def check_vat_at(vat):
-    '''
-    Check Austria VAT number.
-    '''
+    '''Check Austria VAT number.'''
     if len(vat) != 9:
         return False
 
@@ -36,10 +34,7 @@ def check_vat_at(vat):
 
 
 def check_vat_al(vat):
-    '''
-    Check Albania VAT number.
-    '''
-
+    '''Check Albania VAT number.'''
     if len(vat) != 10:
         return False
 
@@ -58,9 +53,7 @@ def check_vat_al(vat):
 
 
 def check_vat_ar(vat):
-    '''
-    Check Argentina VAT number.
-    '''
+    '''Check Argentina VAT number.'''
     if len(vat) != 11:
         return False
 
@@ -79,9 +72,7 @@ def check_vat_ar(vat):
 
 
 def check_vat_be(vat):
-    '''
-    Check Belgium VAT number.
-    '''
+    '''Check Belgium VAT number.'''
     if len(vat) != 10:
         return False
 
@@ -101,9 +92,7 @@ def check_vat_be(vat):
 
 
 def check_vat_bg(vat):
-    '''
-    Check Bulgaria VAT number.
-    '''
+    '''Check Bulgaria VAT number.'''
     if len(vat) == 9:
         #XXX don't know any rules for this length
         return True
@@ -138,9 +127,7 @@ def check_vat_bg(vat):
 
 
 def check_vat_cl(rut):
-    '''
-    Check Chile RUT number.
-    '''
+    '''Check Chile RUT number.'''
     try:
         _posint(rut[:-1])
     except ValueError:
@@ -160,9 +147,7 @@ def check_vat_cl(rut):
 
 
 def check_vat_co(rut):
-    '''
-    Check Colombian RUT number.
-    '''
+    '''Check Colombian RUT number.'''
     if len(rut) != 10:
         return False
 
@@ -183,9 +168,7 @@ def check_vat_co(rut):
 
 
 def check_vat_cy(vat):
-    '''
-    Check Cyprus VAT number.
-    '''
+    '''Check Cyprus VAT number.'''
     if len(vat) != 9:
         return False
 
@@ -213,9 +196,7 @@ def check_vat_cy(vat):
 
 
 def check_vat_cz(vat):
-    '''
-    Check Czech Republic VAT number.
-    '''
+    '''Check Czech Republic VAT number.'''
     if len(vat) not in (8, 9, 10):
         return False
 
@@ -318,9 +299,7 @@ def check_vat_cz(vat):
 
 
 def check_vat_de(vat):
-    '''
-    Check Germany VAT number.
-    '''
+    '''Check Germany VAT number .'''
     if len(vat) != 9:
         return False
 
@@ -347,9 +326,7 @@ def check_vat_de(vat):
 
 
 def check_vat_dk(vat):
-    '''
-    Check Denmark VAT number.
-    '''
+    '''Check Denmark VAT number.'''
     if len(vat) != 8:
         return False
 
@@ -371,9 +348,7 @@ def check_vat_dk(vat):
 
 
 def check_vat_ee(vat):
-    '''
-    Check Estonia VAT number.
-    '''
+    '''Check Estonia VAT number.'''
     if len(vat) != 9:
         return False
 
@@ -397,9 +372,7 @@ def check_vat_ee(vat):
 
 
 def check_vat_es(vat):
-    '''
-    Check Spain VAT number.
-    '''
+    '''Check Spain VAT number.'''
     if len(vat) != 9:
         return False
 
@@ -481,9 +454,7 @@ def check_vat_es(vat):
 
 
 def check_vat_fi(vat):
-    '''
-    Check Finland VAT number.
-    '''
+    '''Check Finland VAT number.'''
     if len(vat) != 8:
         return False
 
@@ -509,9 +480,7 @@ def check_vat_fi(vat):
 
 
 def check_vat_fr(vat):
-    '''
-    Check France VAT number.
-    '''
+    '''Check France VAT number.'''
     if len(vat) != 11:
         return False
 
@@ -558,10 +527,7 @@ def check_vat_fr(vat):
 
 
 def check_vat_gb(vat):
-    '''
-    Check United Kingdom VAT number.
-    '''
-
+    '''Check United Kingdom VAT number.'''
     if len(vat) == 5:
         try:
             _posint(vat[2:5])
@@ -651,9 +617,7 @@ def check_vat_gb(vat):
 
 
 def check_vat_gr(vat):
-    '''
-    Check Greece VAT number.
-    '''
+    '''Check Greece VAT number.'''
     try:
         _posint(vat)
     except ValueError:
@@ -692,16 +656,12 @@ def check_vat_gr(vat):
 
 
 def check_vat_el(vat):
-    '''
-    Check Greece VAT number.
-    '''
+    '''Check Greece VAT number.'''
     return check_vat_gr(vat)
 
 
 def check_vat_hr(vat):
-    '''
-    Check Croatia VAT number.
-    '''
+    '''Check Croatia VAT number.'''
     if len(vat) != 11:
         return False
 
@@ -717,9 +677,7 @@ def check_vat_hr(vat):
 
 
 def check_vat_hu(vat):
-    '''
-    Check Hungary VAT number.
-    '''
+    '''Check Hungary VAT number.'''
     if len(vat) != 8:
         return False
 
@@ -745,9 +703,7 @@ def check_vat_hu(vat):
 
 
 def check_vat_ie(vat):
-    '''
-    Check Ireland VAT number.
-    '''
+    '''Check Ireland VAT number.'''
     if len(vat) != 8:
         return False
 
@@ -795,9 +751,7 @@ def check_vat_ie(vat):
 
 
 def check_vat_it(vat):
-    '''
-    Check Italy VAT number.
-    '''
+    '''Check Italy VAT number.'''
     if len(vat) != 11:
         return False
 
@@ -830,9 +784,7 @@ def check_vat_it(vat):
 
 
 def check_vat_lt(vat):
-    '''
-    Check Lithuania VAT number.
-    '''
+    '''Check Lithuania VAT number.'''
     try:
         _posint(vat)
     except ValueError:
@@ -886,9 +838,7 @@ def check_vat_lt(vat):
 
 
 def check_vat_lu(vat):
-    '''
-    Check Luxembourg VAT number.
-    '''
+    '''Check Luxembourg VAT number.'''
     if len(vat) != 8:
         return False
 
@@ -907,9 +857,7 @@ def check_vat_lu(vat):
 
 
 def check_vat_lv(vat):
-    '''
-    Check Latvia VAT number.
-    '''
+    '''Check Latvia VAT number.'''
     if len(vat) != 11:
         return False
 
@@ -962,9 +910,7 @@ def check_vat_lv(vat):
 
 
 def check_vat_mt(vat):
-    '''
-    Check Malta VAT number.
-    '''
+    '''Check Malta VAT number.'''
     if len(vat) != 8:
         return False
 
@@ -986,9 +932,7 @@ def check_vat_mt(vat):
 
 
 def check_vat_nl(vat):
-    '''
-    Check Netherlands VAT number.
-    '''
+    '''Check Netherlands VAT number.'''
     if len(vat) != 12:
         return False
 
@@ -1018,9 +962,7 @@ def check_vat_nl(vat):
 
 
 def check_vat_pl(vat):
-    '''
-    Check Poland VAT number.
-    '''
+    '''Check Poland VAT number.'''
     if len(vat) != 10:
         return False
 
@@ -1043,9 +985,7 @@ def check_vat_pl(vat):
 
 
 def check_vat_pt(vat):
-    '''
-    Check Portugal VAT number.
-    '''
+    '''Check Portugal VAT number.'''
     if len(vat) != 9:
         return False
 
@@ -1071,9 +1011,7 @@ def check_vat_pt(vat):
 
 
 def check_vat_ro(vat):
-    '''
-    Check Romania VAT number.
-    '''
+    '''Check Romania VAT number.'''
     try:
         _posint(vat)
     except ValueError:
@@ -1135,9 +1073,7 @@ def check_vat_ro(vat):
 
 
 def check_vat_se(vat):
-    '''
-    Check Sweden VAT number.
-    '''
+    '''Check Sweden VAT number.'''
     if len(vat) != 12:
         return False
 
@@ -1164,9 +1100,7 @@ def check_vat_se(vat):
 
 
 def check_vat_si(vat):
-    '''
-    Check Slovenia VAT number.
-    '''
+    '''Check Slovenia VAT number.'''
     if len(vat) != 8:
         return False
 
@@ -1195,9 +1129,7 @@ def check_vat_si(vat):
 
 
 def check_vat_sk(vat):
-    '''
-    Check Slovakia VAT number.
-    '''
+    '''Check Slovakia VAT number.'''
     try:
         _posint(vat)
     except ValueError:
@@ -1246,9 +1178,7 @@ def check_vat_sk(vat):
 
 
 def check_vat_sm(vat):
-    '''
-    Check San Marino VAT number.
-    '''
+    '''Check San Marino VAT number.'''
     if len(vat) != 5:
         return False
 
@@ -1261,9 +1191,7 @@ def check_vat_sm(vat):
 
 
 def check_vat_ua(vat):
-    '''
-    Check Ukraine VAT number.
-    '''
+    '''Check Ukraine VAT number.'''
     if len(vat) != 8:
         return False
 
@@ -1276,16 +1204,12 @@ def check_vat_ua(vat):
 
 
 def check_vat_uk(vat):
-    '''
-    Check United Kingdom VAT number.
-    '''
+    '''Check United Kingdom VAT number.'''
     return check_vat_gb(vat)
 
 
 def check_vat_ru(vat):
-    '''
-    Check Russia VAT number.
-    '''
+    '''Check Russia VAT number.'''
     if len(vat) != 10 and len(vat) != 12:
         return False
 
