@@ -21,30 +21,8 @@ VAT_NUMBERS = (
     test_check_vat_de.VAT_NUMBERS +
     test_check_vat_dk.VAT_NUMBERS +
     test_check_vat_ee.VAT_NUMBERS +
+    test_check_vat_es.VAT_NUMBERS +
     [
-        ('ES', 'A12345674', True),
-        ('ES', 'P1234567D', True),
-        ('ES', 'K1234567L', True),
-        ('ES', 'R9600075G', True),
-        ('ES', 'W4003922D', True),
-        ('ES', 'V99218067', True),
-        ('ES', 'U99216632', True),
-        ('ES', 'J99216582', True),
-        ('ES', 'U99216426', True),
-        ('ES', '12345678Z', True),
-        ('ES', 'X5277343Q', True),
-        ('ES', 'Y5277343F', True),
-        ('ES', 'Z5277343K', True),
-        ('ES', '1234567890', False),
-        ('ES', 'AB3456789', False),
-        ('ES', 'A12345690', True),
-        ('ES', 'A12345679', False),
-        ('ES', 'WA003922D', False),
-        ('ES', 'W4003922A', False),
-        ('ES', 'ZA277343K', False),
-        ('ES', 'Z5277343A', False),
-        ('ES', '1A345678Z', False),
-        ('ES', '12345678A', False),
         ('FI', '12345671', True),
         ('FR', '32123456789', True),
         ('FR', '2H123456789', True),
