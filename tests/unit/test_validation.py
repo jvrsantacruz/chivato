@@ -46,6 +46,9 @@ VAT_NUMBERS = (
     test_check_vat_ua.VAT_NUMBERS +
     [
         ('', '12456789', False),
+        ('1' * 50, '12456789', False),
+        ('11', '12456789', False),
+        ('NON', '12456789', False),
     ])
 
 
