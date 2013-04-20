@@ -2,10 +2,10 @@
 
 from hamcrest import assert_that, is_
 
-import chivato
+from chivato import validators
 
 
-validator = chivato.check_vat_mt
+validator = validators.check_vat_mt
 
 COUNTRY_CODE = 'MT'
 

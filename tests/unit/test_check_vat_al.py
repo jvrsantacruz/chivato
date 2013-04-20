@@ -2,8 +2,10 @@
 
 from hamcrest import assert_that, is_
 
-import chivato
+from chivato import validators
 
+
+validator = validators.check_vat_al
 
 COUNTRY_CODE = 'AL'
 
@@ -28,6 +30,6 @@ class TestAlbaniaValidator(object):
             yield self.validation, number, True
 
     def validation(self, number, expected_result):
-        validation_result = chivato.check_vat_al(number)
+        validation_result = validator(number)
 
         assert_that(validation_result, is_(expected_result), number)
