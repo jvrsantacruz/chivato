@@ -30,9 +30,8 @@ VAT_NUMBERS = (
     test_check_vat_hu.VAT_NUMBERS +
     test_check_vat_ie.VAT_NUMBERS +
     test_check_vat_it.VAT_NUMBERS +
+    test_check_vat_lt.VAT_NUMBERS +
     [
-        ('LT', '123456715', True),
-        ('LT', '123456789011', True),
         ('LU', '12345613', True),
         ('LV', '41234567891', True),
         ('LV', '15066312345', True),
