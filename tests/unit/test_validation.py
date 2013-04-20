@@ -23,9 +23,8 @@ VAT_NUMBERS = (
     test_check_vat_ee.VAT_NUMBERS +
     test_check_vat_es.VAT_NUMBERS +
     test_check_vat_fi.VAT_NUMBERS +
+    test_check_vat_fr.VAT_NUMBERS +
     [
-        ('FR', '32123456789', True),
-        ('FR', '2H123456789', True),
         ('GB', 'GD123', True),
         ('GB', 'GD888812326', True),
         ('GB', 'HA567', True),
