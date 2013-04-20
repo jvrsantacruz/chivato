@@ -35,8 +35,8 @@ VAT_NUMBERS = (
     test_check_vat_lv.VAT_NUMBERS +
     test_check_vat_mt.VAT_NUMBERS +
     test_check_vat_nl.VAT_NUMBERS +
+    test_check_vat_pl.VAT_NUMBERS +
     [
-        ('PL', '1234567883', True),
         ('PT', '123456789', True),
         ('RO', '24736200', True),
         ('RO', '1234567897', True),
