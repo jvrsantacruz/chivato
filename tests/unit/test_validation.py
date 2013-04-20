@@ -42,8 +42,8 @@ VAT_NUMBERS = (
     test_check_vat_se.VAT_NUMBERS +
     test_check_vat_si.VAT_NUMBERS +
     test_check_vat_sk.VAT_NUMBERS +
+    test_check_vat_sm.VAT_NUMBERS +
     [
-        ('SM', '12345', True),
         ('UA', '12345678', True),
         ('', '12456789', False),
     ])
