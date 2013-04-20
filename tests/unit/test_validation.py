@@ -41,12 +41,8 @@ VAT_NUMBERS = (
     test_check_vat_ru.VAT_NUMBERS +
     test_check_vat_se.VAT_NUMBERS +
     test_check_vat_si.VAT_NUMBERS +
+    test_check_vat_sk.VAT_NUMBERS +
     [
-        ('SK', '0012345675', True),
-        ('SK', '0012345678', True),
-        ('SK', '531231123', True),
-        ('SK', '6306151234', True),
-        ('SK', '2021853504', True),
         ('SM', '12345', True),
         ('UA', '12345678', True),
         ('', '12456789', False),
