@@ -25,9 +25,8 @@ VAT_NUMBERS = (
     test_check_vat_fi.VAT_NUMBERS +
     test_check_vat_fr.VAT_NUMBERS +
     test_check_vat_gb.VAT_NUMBERS +
+    test_check_vat_gr.VAT_NUMBERS +
     [
-        ('GR', '12345670', True),
-        ('GR', '123456783', True),
         ('HR', '12345678903', True),
         ('HR', '24595836665', True),
         ('HR', '23448731483', True),
