@@ -377,15 +377,12 @@ class Spain(object):
     """Spanish VAT number 'CIF'
 
     The code has 9 characters, always starts with a single letter,
-    has a control code and 4 different fields:
+    has a control code and 3 different fields:
 
         kind: A letter which indicates the company kind
                 the allowed letters are A-H J-N P-S and U V W
 
-        province: Two-digit number which indicates the spanish province.
-                    Allowed numbers can be found in a table
-
-        number: Five-digit id number
+        number: Seven-digit id number
 
         control: A single character computed over the concatenation of
                     province and number digits, which may end up being
@@ -395,10 +392,9 @@ class Spain(object):
     """
 
     _parse_re = re.compile(
-        '(?P<kind>[A-HJ-NP-SUVW])'   # company category letter
-        '(?P<province>\d{2})'  # province numeric code
-        '(?P<number>\d{5})'    # id number
-        '(?P<control>\w)',     # control character
+        '(?P<kind>[A-HJ-NP-SUVW])'  # company category letter
+        '(?P<number>\d{7})'         # province + id number
+        '(?P<control>\w)',          # control character
         flags=re.IGNORECASE)
 
     DIGIT_ONLY = 'ABEH'
@@ -411,13 +407,13 @@ class Spain(object):
     def parse(self, vat):
         match = self._parse_re.match(vat)
         if not match:
-            raise ValueError('Invalid format for vat number "{0}"'.format(vat))
+            raise ValueError(u'Invalid format for vat number "{0}"'
+                             .format(vat))
 
         return match.groups()
 
     def control_char(self, kind, number, digit_only=DIGIT_ONLY):
         """Compute the control char from the company kind and the number
-        (the number includes the province prefix)
 
         The algorithm is the following:
 
@@ -460,85 +456,13 @@ class Spain(object):
         return str(unit) if kind in digit_only else self.CONTROL_LETTERS[unit]
 
     def validate(self, vat):
-        '''Check Spain VAT number.'''
-        if len(vat) != 9:
+        """Check Spain VAT number."""
+        try:
+            kind, number, control = self.parse(vat)
+        except ValueError:
             return False
 
-        conv = {
-            1: 'T', 2: 'R', 3: 'W', 4: 'A', 5: 'G', 6: 'M', 7: 'Y', 8: 'F', 9: 'P',
-            10: 'D', 11: 'X', 12: 'B', 13: 'N', 14: 'J', 15: 'Z', 16: 'S', 17: 'Q',
-            18: 'V', 19: 'H', 20: 'L', 21: 'C', 22: 'K', 23: 'E'
-        }
-
-        if vat[0] in ('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'U', 'V'):
-            try:
-                _posint(vat[1:])
-            except ValueError:
-                return False
-
-            check_sum = (mult_add(2, int(vat[1])) + int(vat[2]) +
-                         mult_add(2, int(vat[3])) + int(vat[4]) +
-                         mult_add(2, int(vat[5])) + int(vat[6]) +
-                         mult_add(2, int(vat[7])))
-
-            check = 10 - (check_sum % 10)
-            if check == 10:
-                check = 0
-
-            if check != int(vat[8]):
-                return False
-            return True
-
-        elif vat[0] in ('N', 'P', 'Q', 'R', 'S', 'W'):
-            try:
-                _posint(vat[1:8])
-            except ValueError:
-                return False
-
-            check_sum = mult_add(2, int(vat[1])) + int(vat[2]) + \
-                mult_add(2, int(vat[3])) + int(vat[4]) + \
-                mult_add(2, int(vat[5])) + int(vat[6]) + \
-                mult_add(2, int(vat[7]))
-
-            check = 10 - (check_sum % 10)
-
-            check = chr(check + 64)
-            if check != vat[8]:
-                return False
-            return True
-
-        elif vat[0] in ('K', 'L', 'M', 'X', 'Y', 'Z'):
-            if vat[0] == 'Y':
-                check_value = '1' + vat[1:8]
-            elif vat[0] == 'Z':
-                check_value = '2' + vat[1:8]
-            else:
-                check_value = vat[1:8]
-
-            try:
-                _posint(check_value)
-            except ValueError:
-                return False
-
-            check = 1 + (int(check_value) % 23)
-
-            check = conv[check]
-            if check != vat[8]:
-                return False
-            return True
-
-        else:
-            try:
-                _posint(vat[:8])
-            except ValueError:
-                return False
-
-            check = 1 + (int(vat[:8]) % 23)
-
-            check = conv[check]
-            if check != vat[8]:
-                return False
-            return True
+        return control == self.control_char(kind, number)
 
 
 def finland(vat):
