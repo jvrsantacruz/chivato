@@ -65,15 +65,26 @@ class TestSpainValidatorParsing(object):
         number = fields[2]
 
         assert_that(number.isdigit())
-        assert_that(number, has_length(5))
+        assert_that(number, has_length(5), number)
 
     def test_parse_valid_vat_returns_a_control_char(self):
         fields = validator.parse(VALID_VAT)
 
         control = fields[3]
 
-        assert_that(control, has_length(1))
+        assert_that(control, has_length(1), control)
 
     @raises(ValueError)
     def test_parse_raises_value_error_on_invalid_numbers(self):
         validator.parse(INVALID_VAT)
+
+
+class TestSpainValidatorControlCode(object):
+    def test_control_character_calculation(self):
+        for kind, number, control in [('A', '5881850', '1')]:
+            yield self.calculate, kind, number, control
+
+    def calculate(self, kind, number, expected):
+        control = validator.control_char(kind, number)
+
+        assert_that(control, is_(expected), number)

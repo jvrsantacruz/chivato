@@ -377,9 +377,6 @@ class Spain(object):
     """Spanish VAT number 'CIF'
     """
 
-    def __call__(self, vat):
-        return self.validate(vat)
-
     _parse_re = re.compile(
         '(?P<kind>[a-zA-Z])'   # company category letter
         '(?P<province>\d{2})'  # province numeric code
@@ -387,12 +384,36 @@ class Spain(object):
         '(?P<control>\w)'      # control character
     )
 
+    DIGIT_CONTROL = 'ABEH'
+    LETTER_CONTROL = 'KPQS'
+
+    NUMBER_TO_LETTER = 'JABCDEFGHI'
+
+    def __call__(self, vat):
+        return self.validate(vat)
+
     def parse(self, vat):
         match = self._parse_re.match(vat)
         if not match:
             raise ValueError('Invalid format for vat number "{}"'.format(vat))
 
         return match.groups()
+
+    def control_char(self, kind, number):
+        evens = sum(int(c) for i, c in enumerate(number) if i % 2)
+
+        # Add up the result of doubling each odd number and adding its digits
+        odds = list(int(c) * 2 for i, c in enumerate(number) if not i % 2)
+        odds = sum(sum(int(c) for c in str(odd)) for odd in odds)
+
+        # Get the units (rightmost digit) from the result
+        unit = int(str(evens + odds)[-1])  # get the units
+        if unit != 0:
+            unit = 10 - unit
+
+        # Result may vary between a letter and a digit depending on the kind
+        return (str(unit) if kind in self.DIGIT_CONTROL
+                else self.NUMBER_TO_LETTER[unit])
 
     def validate(self, vat):
         '''Check Spain VAT number.'''
