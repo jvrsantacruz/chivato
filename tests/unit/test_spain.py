@@ -83,10 +83,22 @@ class TestSpainValidatorParsing(object):
 class TestSpainValidatorControlCode(object):
     def test_control_character_calculation(self):
         for kind, number, control in [('A', '5881850', '1'),
-                                      ('K', '5881850', 'A')]:
+                                      ('K', '5881850', 'A'),
+                                      ('B', '7777850', '4'),
+                                      ('P', '7777850', 'D')]:
             yield self.calculate, kind, number, control
 
     def calculate(self, kind, number, expected):
         control = validator.control_char(kind, number)
 
         assert_that(control, is_(expected), number)
+
+    def test_control_character_returns_letter_if_kind_not_in_digit_only(self):
+        control = validator.control_char(1, '1111111', digit_only=[])
+
+        assert_that(control.isalpha())
+
+    def test_control_character_returns_letter_if_kind_in_digit_only(self):
+        control = validator.control_char(1, '1111111', digit_only=[1])
+
+        assert_that(control.isdigit())

@@ -415,7 +415,36 @@ class Spain(object):
 
         return match.groups()
 
-    def control_char(self, kind, number):
+    def control_char(self, kind, number, digit_only=DIGIT_ONLY):
+        """Compute the control char from the company kind and the number
+        (the number includes the province prefix)
+
+        The algorithm is the following:
+
+            A = Sum all the digits in even positions in the number
+                 ([0] is odd)
+
+            B = Get all the odd digits in the number
+                 Multiply each digit by two
+                 If the result has two digits, add them
+                 (eg: 6 * 2 = '12' and 1 + 2 = 3)
+                 Add them all together
+
+            C = A + B
+
+            D = Get the unit digit from C
+                 (eg: unit digit of '12' is 2)
+
+            If happens to not to be 0, substract it from 10
+                E = 10 - D
+
+            If the number kind letter is one of A B E H
+             the control character is a digit, and return E right away.
+
+            Otherwise, if the number kind letter is K P Q S
+             a letter must be return which can be looked up
+             in a table using E as index.
+        """
         evens = sum(int(c) for i, c in enumerate(number) if i % 2)
 
         # Add up the result of doubling each odd number and adding its digits
@@ -428,8 +457,7 @@ class Spain(object):
             unit = 10 - unit
 
         # Result may vary between a letter and a digit depending on the kind
-        return (str(unit) if kind in self.DIGIT_ONLY
-                else self.CONTROL_LETTERS[unit])
+        return str(unit) if kind in digit_only else self.CONTROL_LETTERS[unit]
 
     def validate(self, vat):
         '''Check Spain VAT number.'''
