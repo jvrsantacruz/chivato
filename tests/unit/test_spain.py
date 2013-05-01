@@ -1,16 +1,21 @@
 #-*- coding: utf-8 -*-
 
-from hamcrest import assert_that, is_
+from hamcrest import assert_that, is_, has_length
 
 from chivato import validators
+
+from nose.tools import raises
 
 
 validator = validators.Spain()
 
 COUNTRY_CODE = 'ES'
 
+VALID_VAT = 'A58818501'
+INVALID_VAT = 'A5881850'
+
 VALID_VAT_NUMBERS = [
-    '32074371C',
+    'A58818501'
 ]
 
 INVALID_VAT_NUMBERS = [
@@ -30,3 +35,45 @@ class TestSpainValidator(object):
         validation_result = validator(number)
 
         assert_that(validation_result, is_(expected_result), number)
+
+
+class TestSpainValidatorParsing(object):
+    def test_parse_valid_vat_returns_fields(self):
+        fields = validator.parse(VALID_VAT)
+
+        assert_that(fields, has_length(4))
+
+    def test_parse_valid_vat_returns_single_letter_company_kind(self):
+        fields = validator.parse(VALID_VAT)
+
+        kind = fields[0]
+
+        assert_that(kind.isalpha())
+        assert_that(kind, has_length(1))
+
+    def test_parse_valid_vat_returns_a_two_digit_province_number(self):
+        fields = validator.parse(VALID_VAT)
+
+        province = fields[1]
+
+        assert_that(province.isdigit())
+        assert_that(province, has_length(2))
+
+    def test_parse_valid_vat_returns_five_digit_number(self):
+        fields = validator.parse(VALID_VAT)
+
+        number = fields[2]
+
+        assert_that(number.isdigit())
+        assert_that(number, has_length(5))
+
+    def test_parse_valid_vat_returns_a_control_char(self):
+        fields = validator.parse(VALID_VAT)
+
+        control = fields[3]
+
+        assert_that(control, has_length(1))
+
+    @raises(ValueError)
+    def test_parse_raises_value_error_on_invalid_numbers(self):
+        validator.parse(INVALID_VAT)

@@ -1,5 +1,7 @@
 #-*- coding: utf-8 -*-
 
+import re
+
 from .helpers import _posint, mult_add, mod1110
 
 
@@ -372,8 +374,25 @@ def estonia(vat):
 
 
 class Spain(object):
+    """Spanish VAT number 'CIF'
+    """
+
     def __call__(self, vat):
         return self.validate(vat)
+
+    _parse_re = re.compile(
+        '(?P<kind>[a-zA-Z])'   # company category letter
+        '(?P<province>\d{2})'  # province numeric code
+        '(?P<number>\d{5})'    # id number
+        '(?P<control>\w)'      # control character
+    )
+
+    def parse(self, vat):
+        match = self._parse_re.match(vat)
+        if not match:
+            raise ValueError('Invalid format for vat number "{}"'.format(vat))
+
+        return match.groups()
 
     def validate(self, vat):
         '''Check Spain VAT number.'''
