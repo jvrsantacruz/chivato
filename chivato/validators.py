@@ -419,7 +419,7 @@ class Spain(object):
         evens = sum(int(c) for i, c in enumerate(number) if i % 2)
 
         # Add up the result of doubling each odd number and adding its digits
-        odds = list(int(c) * 2 for i, c in enumerate(number) if not i % 2)
+        odds = (int(c) * 2 for i, c in enumerate(number) if not i % 2)
         odds = sum(sum(int(c) for c in str(odd)) for odd in odds)
 
         # Get the units (rightmost digit) from the result
