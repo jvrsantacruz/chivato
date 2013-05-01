@@ -12,11 +12,13 @@ validator = validators.Spain()
 COUNTRY_CODE = 'ES'
 
 VALID_VAT_NUMBERS = [
-    'A58818501'
+    'A58818501', 'P8409802I', 'A84907716', 'N8230217E', 'S4908281A',
+    'M4136184A', 'H17548215', 'V36208874', 'Q5472655I', 'G7176077A',
+    'A35981604'
 ]
 
 INVALID_VAT_NUMBERS = [
-    '32074371F'
+    '34074371F', 'I58818501', 'Q8409802J', 'PP409802I'
 ]
 
 VAT_NUMBERS = ([(COUNTRY_CODE, number, True) for number in VALID_VAT_NUMBERS] +
@@ -74,10 +76,9 @@ class TestSpainValidatorParsing(object):
 
 class TestSpainValidatorControlCode(object):
     def test_control_character_calculation(self):
-        for kind, number, control in [('A', '5881850', '1'),
-                                      ('K', '5881850', 'A'),
-                                      ('B', '7777850', '4'),
-                                      ('P', '7777850', 'D')]:
+        for kind, number, control in [('A', '5881850', 1),
+                                      ('K', '5881850', 1),
+                                      ('B', '7777850', 4)]:
             yield self.calculate, kind, number, control
 
     def calculate(self, kind, number, expected):
@@ -85,12 +86,22 @@ class TestSpainValidatorControlCode(object):
 
         assert_that(control, is_(expected), number)
 
-    def test_control_character_returns_letter_if_kind_not_in_digit_only(self):
-        control = validator.control_char(1, '1111111', digit_only=[])
+    def test_compare_returns_true_with_letter_and_letter_only_kind(self):
+        valid = validator.compare_control_chars('P', 'I', 9)
 
-        assert_that(control.isalpha())
+        assert_that(is_(valid))
 
-    def test_control_character_returns_letter_if_kind_in_digit_only(self):
-        control = validator.control_char(1, '1111111', digit_only=[1])
+    def test_compare_returns_true_with_number_and_number_only_kind(self):
+        valid = validator.compare_control_chars('A', '9', 9)
 
-        assert_that(control.isdigit())
+        assert_that(is_(valid))
+
+    def test_compare_returns_true_with_number_and_not_restrained_kind(self):
+        valid = validator.compare_control_chars('R', '9', 9)
+
+        assert_that(is_(valid))
+
+    def test_compare_returns_true_with_letter_and_not_restrained_kind(self):
+        valid = validator.compare_control_chars('R', 'I', 9)
+
+        assert_that(is_(valid))

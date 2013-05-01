@@ -411,7 +411,9 @@ class Spain(object):
         except ValueError:
             return False
 
-        return control == self.control_char(kind, number)
+        calculated_control = self.control_char(kind, number)
+
+        return self.compare_control_chars(kind, control, calculated_control)
 
     def parse(self, vat):
         match = self._parse_re.match(vat)
@@ -420,6 +422,20 @@ class Spain(object):
                              .format(vat))
 
         return match.groups()
+
+    def compare_control_chars(self, kind, given, calculated):
+        """Check if the given control code matches the calculated one
+        This is necessary as some numbers may accept the character
+        both in it's letter and digit form
+
+        The calculated control char should be an integer
+        """
+        calculated_letter = self.CONTROL_LETTERS[calculated]
+
+        return (
+            (kind not in self.LETTER_ONLY and given == str(calculated))
+            or (kind not in self.DIGIT_ONLY and given == calculated_letter)
+        )
 
     def control_char(self, kind, number, digit_only=DIGIT_ONLY):
         """Compute the control char from the company kind and the number
@@ -461,8 +477,7 @@ class Spain(object):
         if unit != 0:
             unit = 10 - unit
 
-        # Result may vary between a letter and a digit depending on the kind
-        return str(unit) if kind in digit_only else self.CONTROL_LETTERS[unit]
+        return unit
 
 
 def finland(vat):
