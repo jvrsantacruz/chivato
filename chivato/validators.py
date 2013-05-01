@@ -466,18 +466,20 @@ class Spain(object):
              a letter must be return which can be looked up
              in a table using E as index.
         """
-        evens = sum(int(c) for i, c in enumerate(number) if i % 2)
+        def single_digit_double(digit):
+            """Return digit * 2 and the result digits added if multiple"""
+            return sum(int(n) for n in str(digit * 2))
 
-        # Add up the result of doubling each odd number and adding its digits
-        odds = (int(c) * 2 for i, c in enumerate(number) if not i % 2)
-        odds = sum(sum(int(c) for c in str(odd)) for odd in odds)
+        def add_digits(digits):
+            """Add up even numbers and the #double of the odd ones"""
+            return sum(d if i % 2 else single_digit_double(d)
+                       for i, d in enumerate(digits))
 
-        # Get the units (rightmost digit) from the result
-        unit = int(str(evens + odds)[-1])  # get the units
-        if unit != 0:
-            unit = 10 - unit
+        control_number = add_digits(int(c) for c in number)
 
-        return unit
+        # get the units (rightmost digit)
+        unit = int(str(control_number)[-1])
+        return unit if unit == 0 else 10 - unit  # 10 - n but in [0-9]
 
 
 def finland(vat):
