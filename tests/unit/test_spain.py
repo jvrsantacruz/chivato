@@ -11,9 +11,6 @@ validator = validators.Spain()
 
 COUNTRY_CODE = 'ES'
 
-VALID_VAT = 'A58818501'
-INVALID_VAT = 'A5881850'
-
 VALID_VAT_NUMBERS = [
     'A58818501'
 ]
@@ -37,11 +34,15 @@ class TestSpainValidator(object):
         assert_that(validation_result, is_(expected_result), number)
 
 
+VALID_VAT = 'A58818501'
+INVALID_VAT = 'A5881850'
+
+
 class TestSpainValidatorParsing(object):
     def test_parse_valid_vat_returns_fields(self):
         fields = validator.parse(VALID_VAT)
 
-        assert_that(fields, has_length(4))
+        assert_that(fields, has_length(4), fields)
 
     def test_parse_valid_vat_returns_single_letter_company_kind(self):
         fields = validator.parse(VALID_VAT)
@@ -49,7 +50,7 @@ class TestSpainValidatorParsing(object):
         kind = fields[0]
 
         assert_that(kind.isalpha())
-        assert_that(kind, has_length(1))
+        assert_that(kind, has_length(1), kind)
 
     def test_parse_valid_vat_returns_a_two_digit_province_number(self):
         fields = validator.parse(VALID_VAT)
@@ -57,7 +58,7 @@ class TestSpainValidatorParsing(object):
         province = fields[1]
 
         assert_that(province.isdigit())
-        assert_that(province, has_length(2))
+        assert_that(province, has_length(2), province)
 
     def test_parse_valid_vat_returns_five_digit_number(self):
         fields = validator.parse(VALID_VAT)
