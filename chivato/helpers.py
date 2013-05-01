@@ -7,15 +7,9 @@ def _posint(x):
     return value
 
 
-def mult_add(i, j):
-    '''
-    Sum each digits of the multiplication of i and j.
-    '''
-    mult = i * j
-    res = 0
-    for i in range(len(str(mult))):
-        res += int(str(mult)[i])
-    return res
+def mult_add(number, multiplier=2):
+    '''Sum each digits of the multiplication of i and j. '''
+    return sum(int(n) for n in str(number * multiplier))
 
 
 def mod1110(value):
