@@ -3,7 +3,7 @@
 from hamcrest import assert_that, is_
 from doublex import Spy, called, ANY_ARG
 
-import chivato
+from chivato.number import Number
 
 
 VALID_COUNTRY_CODE = u'AT'
@@ -16,24 +16,27 @@ was = is_
 
 
 class TestParseVat(object):
+
+    parse_vat = Number().parse
+
     def test_returns_code_and_number(self):
-        code, number = chivato.parse_vat(VALID_VAT)
+        code, number = self.parse_vat(VALID_VAT)
 
     def test_parses_code_to_normalized_country_code(self):
-        code, number = chivato.parse_vat(VALID_VAT)
+        code, number = self.parse_vat(VALID_VAT)
 
-        assert_that(code, is_(NORMALIZED_COUNTRY_CODE))
+        assert_that(code, is_(VALID_COUNTRY_CODE))
 
     def test_parses_number(self):
-        code, number = chivato.parse_vat(VALID_VAT)
+        code, number = self.parse_vat(VALID_VAT)
 
         assert_that(number, is_(VALID_NUMBER))
 
     def test_parses_str(self):
-        code, number = chivato.parse_vat(str(VALID_VAT))
+        code, number = self.parse_vat(str(VALID_VAT))
 
     def test_parses_unicode(self):
-        code, number = chivato.parse_vat(VALID_VAT)
+        code, number = self.parse_vat(VALID_VAT)
 
     """ not quite yet, as it breaks Python3 compatibility
     from nose.tools import raises
@@ -43,19 +46,22 @@ class TestParseVat(object):
     """
 
 
-class TestCheckVat(object):
+class TestValidate(object):
+
+    number = Number()
+
     def test_function(self):
-        validation_result = chivato.check_vat(VALID_VAT)
+        validation_result = self.number.validate(VALID_VAT)
 
         assert_that(validation_result)
 
     def test_uses_parser_to_parse_input(self):
         with Spy() as spy:
-            spy.parser(ANY_ARG).returns(
-                [NORMALIZED_COUNTRY_CODE, VALID_NUMBER]
-            )
+            parse_return = [NORMALIZED_COUNTRY_CODE, VALID_NUMBER]
+            spy.parser(ANY_ARG).returns(parse_return)
+        self.number.parse = spy.parser
 
-        chivato.check_vat(VALID_VAT, parser=spy.parser)
+        self.number.validate(VALID_VAT)
 
         assert_that(spy.parser, was(called().with_args(VALID_VAT)))
 
@@ -63,7 +69,7 @@ class TestCheckVat(object):
         with Spy() as validators:
             validators.get(ANY_ARG).returns(lambda number: None)
 
-        chivato.check_vat(VALID_VAT, validators=validators)
+        self.number.validator(VALID_NUMBER, VALID_COUNTRY_CODE, validators=validators)
 
         assert_that(validators.get,
                     was(called().with_args(NORMALIZED_COUNTRY_CODE)))

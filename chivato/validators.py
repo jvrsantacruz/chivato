@@ -371,86 +371,90 @@ def estonia(vat):
     return True
 
 
-def spain(vat):
-    '''Check Spain VAT number.'''
-    if len(vat) != 9:
-        return False
+class Spain(object):
+    def __call__(self, vat):
+        return self.validate(vat)
 
-    conv = {
-        1: 'T', 2: 'R', 3: 'W', 4: 'A', 5: 'G', 6: 'M', 7: 'Y', 8: 'F', 9: 'P',
-        10: 'D', 11: 'X', 12: 'B', 13: 'N', 14: 'J', 15: 'Z', 16: 'S', 17: 'Q',
-        18: 'V', 19: 'H', 20: 'L', 21: 'C', 22: 'K', 23: 'E'
-    }
-
-    if vat[0] in ('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'U', 'V'):
-        try:
-            _posint(vat[1:])
-        except ValueError:
+    def validate(self, vat):
+        '''Check Spain VAT number.'''
+        if len(vat) != 9:
             return False
 
-        check_sum = (mult_add(2, int(vat[1])) + int(vat[2]) +
-                     mult_add(2, int(vat[3])) + int(vat[4]) +
-                     mult_add(2, int(vat[5])) + int(vat[6]) +
-                     mult_add(2, int(vat[7])))
+        conv = {
+            1: 'T', 2: 'R', 3: 'W', 4: 'A', 5: 'G', 6: 'M', 7: 'Y', 8: 'F', 9: 'P',
+            10: 'D', 11: 'X', 12: 'B', 13: 'N', 14: 'J', 15: 'Z', 16: 'S', 17: 'Q',
+            18: 'V', 19: 'H', 20: 'L', 21: 'C', 22: 'K', 23: 'E'
+        }
 
-        check = 10 - (check_sum % 10)
-        if check == 10:
-            check = 0
+        if vat[0] in ('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'U', 'V'):
+            try:
+                _posint(vat[1:])
+            except ValueError:
+                return False
 
-        if check != int(vat[8]):
-            return False
-        return True
+            check_sum = (mult_add(2, int(vat[1])) + int(vat[2]) +
+                         mult_add(2, int(vat[3])) + int(vat[4]) +
+                         mult_add(2, int(vat[5])) + int(vat[6]) +
+                         mult_add(2, int(vat[7])))
 
-    elif vat[0] in ('N', 'P', 'Q', 'R', 'S', 'W'):
-        try:
-            _posint(vat[1:8])
-        except ValueError:
-            return False
+            check = 10 - (check_sum % 10)
+            if check == 10:
+                check = 0
 
-        check_sum = mult_add(2, int(vat[1])) + int(vat[2]) + \
-            mult_add(2, int(vat[3])) + int(vat[4]) + \
-            mult_add(2, int(vat[5])) + int(vat[6]) + \
-            mult_add(2, int(vat[7]))
+            if check != int(vat[8]):
+                return False
+            return True
 
-        check = 10 - (check_sum % 10)
+        elif vat[0] in ('N', 'P', 'Q', 'R', 'S', 'W'):
+            try:
+                _posint(vat[1:8])
+            except ValueError:
+                return False
 
-        check = chr(check + 64)
-        if check != vat[8]:
-            return False
-        return True
+            check_sum = mult_add(2, int(vat[1])) + int(vat[2]) + \
+                mult_add(2, int(vat[3])) + int(vat[4]) + \
+                mult_add(2, int(vat[5])) + int(vat[6]) + \
+                mult_add(2, int(vat[7]))
 
-    elif vat[0] in ('K', 'L', 'M', 'X', 'Y', 'Z'):
-        if vat[0] == 'Y':
-            check_value = '1' + vat[1:8]
-        elif vat[0] == 'Z':
-            check_value = '2' + vat[1:8]
+            check = 10 - (check_sum % 10)
+
+            check = chr(check + 64)
+            if check != vat[8]:
+                return False
+            return True
+
+        elif vat[0] in ('K', 'L', 'M', 'X', 'Y', 'Z'):
+            if vat[0] == 'Y':
+                check_value = '1' + vat[1:8]
+            elif vat[0] == 'Z':
+                check_value = '2' + vat[1:8]
+            else:
+                check_value = vat[1:8]
+
+            try:
+                _posint(check_value)
+            except ValueError:
+                return False
+
+            check = 1 + (int(check_value) % 23)
+
+            check = conv[check]
+            if check != vat[8]:
+                return False
+            return True
+
         else:
-            check_value = vat[1:8]
+            try:
+                _posint(vat[:8])
+            except ValueError:
+                return False
 
-        try:
-            _posint(check_value)
-        except ValueError:
-            return False
+            check = 1 + (int(vat[:8]) % 23)
 
-        check = 1 + (int(check_value) % 23)
-
-        check = conv[check]
-        if check != vat[8]:
-            return False
-        return True
-
-    else:
-        try:
-            _posint(vat[:8])
-        except ValueError:
-            return False
-
-        check = 1 + (int(vat[:8]) % 23)
-
-        check = conv[check]
-        if check != vat[8]:
-            return False
-        return True
+            check = conv[check]
+            if check != vat[8]:
+                return False
+            return True
 
 
 def finland(vat):

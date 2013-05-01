@@ -4,6 +4,8 @@ from hamcrest import assert_that, is_
 
 import chivato
 
+from nose.tools import raises
+
 from . import *
 
 
@@ -42,13 +44,15 @@ VAT_NUMBERS = (
     test_slovenia.VAT_NUMBERS +
     test_slovakia.VAT_NUMBERS +
     test_san_marino.VAT_NUMBERS +
-    test_ukraine.VAT_NUMBERS +
-    [
-        ('', '12456789', False),
-        ('1' * 50, '12456789', False),
-        ('11', '12456789', False),
-        ('NON', '12456789', False),
-    ])
+    test_ukraine.VAT_NUMBERS
+)
+
+NO_CONTRY_CODE = [
+    ('', '12456789'),
+    ('1' * 50, '12456789'),
+    ('11', '12456789'),
+    ('NON', '12456789')
+]
 
 
 class TestValidation(object):
@@ -63,3 +67,13 @@ class TestValidation(object):
 
     def test_countries(self):
         chivato.countries()
+
+
+class TestCountryCode(object):
+    def test_no_country_code_raises_value_error(self):
+        for code, number in NO_CONTRY_CODE:
+            yield self.raises_country_code, code + number
+
+    @raises(ValueError)
+    def raises_country_code(self, number):
+        chivato.check_vat(number)
