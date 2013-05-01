@@ -82,7 +82,8 @@ class TestSpainValidatorParsing(object):
 
 class TestSpainValidatorControlCode(object):
     def test_control_character_calculation(self):
-        for kind, number, control in [('A', '5881850', '1')]:
+        for kind, number, control in [('A', '5881850', '1'),
+                                      ('K', '5881850', 'A')]:
             yield self.calculate, kind, number, control
 
     def calculate(self, kind, number, expected):

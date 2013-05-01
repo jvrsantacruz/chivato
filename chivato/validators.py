@@ -378,16 +378,15 @@ class Spain(object):
     """
 
     _parse_re = re.compile(
-        '(?P<kind>[a-zA-Z])'   # company category letter
+        '(?P<kind>[A-HJ-NP-SUVW])'   # company category letter
         '(?P<province>\d{2})'  # province numeric code
         '(?P<number>\d{5})'    # id number
-        '(?P<control>\w)'      # control character
-    )
+        '(?P<control>\w)',     # control character
+        flags=re.IGNORECASE)
 
-    DIGIT_CONTROL = 'ABEH'
-    LETTER_CONTROL = 'KPQS'
-
-    NUMBER_TO_LETTER = 'JABCDEFGHI'
+    DIGIT_ONLY = 'ABEH'
+    LETTER_ONLY = 'KPQS'
+    CONTROL_LETTERS = 'JABCDEFGHI'
 
     def __call__(self, vat):
         return self.validate(vat)
@@ -412,8 +411,8 @@ class Spain(object):
             unit = 10 - unit
 
         # Result may vary between a letter and a digit depending on the kind
-        return (str(unit) if kind in self.DIGIT_CONTROL
-                else self.NUMBER_TO_LETTER[unit])
+        return (str(unit) if kind in self.DIGIT_ONLY
+                else self.CONTROL_LETTERS[unit])
 
     def validate(self, vat):
         '''Check Spain VAT number.'''
