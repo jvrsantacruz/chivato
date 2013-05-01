@@ -466,16 +466,8 @@ class Spain(object):
              a letter must be return which can be looked up
              in a table using E as index.
         """
-        def single_digit_double(digit):
-            """Return digit * 2 and the result digits added if multiple"""
-            return sum(int(n) for n in str(digit * 2))
-
-        def add_digits(digits):
-            """Add up even numbers and the #double of the odd ones"""
-            return sum(d if i % 2 else single_digit_double(d)
-                       for i, d in enumerate(digits))
-
-        control_number = add_digits(int(c) for c in number)
+        control_number = sum(d if i % 2 else mult_add(d)
+                             for i, d in enumerate(int(c) for c in number))
 
         # get the units (rightmost digit)
         unit = int(str(control_number)[-1])
