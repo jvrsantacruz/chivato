@@ -375,6 +375,23 @@ def estonia(vat):
 
 class Spain(object):
     """Spanish VAT number 'CIF'
+
+    The code has 9 characters, always starts with a single letter,
+    has a control code and 4 different fields:
+
+        kind: A letter which indicates the company kind
+                the allowed letters are A-H J-N P-S and U V W
+
+        province: Two-digit number which indicates the spanish province.
+                    Allowed numbers can be found in a table
+
+        number: Five-digit id number
+
+        control: A single character computed over the concatenation of
+                    province and number digits, which may end up being
+                    a letter or a digit depending on the kind
+
+    documentation: http://www.boe.es/buscar/doc.php?id=BOE-A-1998-16310
     """
 
     _parse_re = re.compile(
