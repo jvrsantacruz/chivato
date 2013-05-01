@@ -395,7 +395,7 @@ class Spain(object):
     def parse(self, vat):
         match = self._parse_re.match(vat)
         if not match:
-            raise ValueError('Invalid format for vat number "{}"'.format(vat))
+            raise ValueError('Invalid format for vat number "{0}"'.format(vat))
 
         return match.groups()
 
