@@ -404,6 +404,15 @@ class Spain(object):
     def __call__(self, vat):
         return self.validate(vat)
 
+    def validate(self, vat):
+        """Check Spain VAT number."""
+        try:
+            kind, number, control = self.parse(vat)
+        except ValueError:
+            return False
+
+        return control == self.control_char(kind, number)
+
     def parse(self, vat):
         match = self._parse_re.match(vat)
         if not match:
@@ -454,15 +463,6 @@ class Spain(object):
 
         # Result may vary between a letter and a digit depending on the kind
         return str(unit) if kind in digit_only else self.CONTROL_LETTERS[unit]
-
-    def validate(self, vat):
-        """Check Spain VAT number."""
-        try:
-            kind, number, control = self.parse(vat)
-        except ValueError:
-            return False
-
-        return control == self.control_char(kind, number)
 
 
 def finland(vat):
