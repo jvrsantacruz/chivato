@@ -691,8 +691,9 @@ def ireland(vat):
         if int(vat[0]) <= 6:
             return False
 
-        check_sum = (7 * int(vat[2]) + 6 * int(vat[3]) + 5 * int(vat[4]) +
-                     4 * int(vat[5]) + 3 * int(vat[6]) + 2 * int(vat[0]))
+        num = vat[:1] + vat[2:-1]
+        coefficients = (2, 7, 6, 5, 4, 3)
+        check_sum = sum(c * int(n) for n, c in zip(num, coefficients))
 
         check = check_sum % 23
         if check == 0:
@@ -710,9 +711,8 @@ def ireland(vat):
         except ValueError:
             return False
 
-        check_sum = (8 * int(vat[0]) + 7 * int(vat[1]) + 6 * int(vat[2]) +
-                     5 * int(vat[3]) + 4 * int(vat[4]) + 3 * int(vat[5]) +
-                     2 * int(vat[6]))
+        coefficients = (8, 7, 6, 5, 4, 3, 2)
+        check_sum = sum(c * int(n) for n, c in zip(vat[:7], coefficients))
 
         check = check_sum % 23
         if check == 0:
