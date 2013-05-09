@@ -614,36 +614,25 @@ def greece(vat):
     except ValueError:
         return False
 
-    if len(vat) == 8:
+    if len(vat) not in (8, 9):
+        return False
 
-        check_sum = (128 * int(vat[0]) + 64 * int(vat[1]) + 32 * int(vat[2]) +
-                     16 * int(vat[3]) + 8 * int(vat[4]) + 4 * int(vat[5]) +
-                     2 * int(vat[6]))
+    # zip in reverse order to compute lengths of 8 and 9
+    num = vat[:-1]
+    reverse_num = [int(n) for n in num[::-1]]
+    coefficients = (2, 4, 8, 16, 32, 64, 128, 256)
+    check_sum = sum(c * n for n, c in zip(reverse_num, coefficients))
 
-        check = check_sum % 11
-        if check == 10:
-            check = 0
+    check = check_sum % 11
+    if check == 10:
+        check = 0
 
-        if check != int(vat[7]):
-            return False
+    control_digit = int(vat[-1])
 
-        return True
+    if check != control_digit:
+        return False
 
-    elif len(vat) == 9:
-
-        check_sum = (256 * int(vat[0]) + 128 * int(vat[1]) + 64 * int(vat[2]) +
-                     32 * int(vat[3]) + 16 * int(vat[4]) + 8 * int(vat[5]) +
-                     4 * int(vat[6]) + 2 * int(vat[7]))
-
-        check = check_sum % 11
-        if check == 10:
-            check = 0
-
-        if check != int(vat[8]):
-            return False
-        return True
-
-    return False
+    return True
 
 
 def croatia(vat):
