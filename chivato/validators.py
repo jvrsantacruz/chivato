@@ -368,9 +368,9 @@ class Spain(object):
 
         number: Seven-digit id number
 
-        control: A single character computed over the concatenation of
-                    province and number digits, which may end up being
-                    a letter or a digit depending on the kind
+        control: A single character computed over 'number' digits
+                   which may end up being a letter or a digit
+                   depending on the kind
 
     documentation: http://www.boe.es/buscar/doc.php?id=BOE-A-1998-16310
     """
@@ -380,10 +380,6 @@ class Spain(object):
         '(?P<number>\d{7})'         # province + id number
         '(?P<control>\w)',          # control character
         flags=re.IGNORECASE)
-
-    DIGIT_ONLY = 'ABEH'
-    LETTER_ONLY = 'KPQS'
-    CONTROL_LETTERS = 'JABCDEFGHI'
 
     def __call__(self, vat):
         return self.validate(vat)
@@ -399,29 +395,29 @@ class Spain(object):
 
         return self.compare_control_chars(kind, control, calculated_control)
 
-    def parse(self, vat):
-        match = self._parse_re.match(vat)
+    def parse(self, vat, matcher=_parse_re.match):
+        match = matcher(vat)
         if not match:
             raise ValueError(u'Invalid format for vat number "{0}"'
                              .format(vat))
 
         return match.groups()
 
-    def compare_control_chars(self, kind, given, calculated):
+    def compare_control_chars(self, kind, given, calculated,
+          letter_only='KPQS', digit_only='ABEH', control_letters='JABCDEFGHI'):
         """Check if the given control code matches the calculated one
         This is necessary as some numbers may accept the character
-        both in it's letter and digit form
+        both in it's letter and digit form.
 
-        The calculated control char should be an integer
+        The 'calculated' control char should be an integer
         """
-        calculated_letter = self.CONTROL_LETTERS[calculated]
+        return ((kind not in letter_only
+                 and given == str(calculated))
 
-        return (
-            (kind not in self.LETTER_ONLY and given == str(calculated))
-            or (kind not in self.DIGIT_ONLY and given == calculated_letter)
-        )
+                or (kind not in digit_only
+                    and given == control_letters[calculated]))
 
-    def control_char(self, kind, number, digit_only=DIGIT_ONLY):
+    def control_char(self, kind, number):
         """Compute the control char from the company kind and the number
 
         The algorithm is the following:
@@ -441,14 +437,7 @@ class Spain(object):
                  (eg: unit digit of '12' is 2)
 
             If happens to not to be 0, substract it from 10
-                E = 10 - D
-
-            If the number kind letter is one of A B E H
-             the control character is a digit, and return E right away.
-
-            Otherwise, if the number kind letter is K P Q S
-             a letter must be return which can be looked up
-             in a table using E as index.
+            E = 10 - D
         """
         control_number = sum(d if i % 2 else mult_add(d)
                              for i, d in enumerate(int(c) for c in number))
