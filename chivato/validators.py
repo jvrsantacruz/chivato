@@ -19,10 +19,8 @@ def austria(vat):
     except ValueError:
         return False
 
-    check_sum = (int(num[0]) + mult_add(2, int(num[1])) +
-                 int(num[2]) + mult_add(2, int(num[3])) +
-                 int(num[4]) + mult_add(2, int(num[5])) +
-                 int(num[6]))
+    check_sum = sum(mult_add(n) if i % 2 else n
+                    for i, n in enumerate(map(int, num[:-1])))
 
     check = 10 - ((check_sum + 4) % 10)
 
