@@ -84,11 +84,9 @@ def belgium(vat):
     except ValueError:
         return False
 
-    if int(vat[-2:]) != \
-            97 - (int(vat[:8]) % 97):
-        return False
+    num, control = int(vat[:-2]), int(vat[-2:])
 
-    return True
+    return control == 97 - (num % 97)
 
 
 def bulgaria(vat):
