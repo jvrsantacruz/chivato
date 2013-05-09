@@ -664,9 +664,8 @@ def hungary(vat):
     if int(vat[0]) <= 0:
         return False
 
-    check_sum = (9 * int(vat[0]) + 7 * int(vat[1]) + 3 * int(vat[2]) +
-                 1 * int(vat[3]) + 9 * int(vat[4]) + 7 * int(vat[5]) +
-                 3 * int(vat[6]))
+    coefficients = (9, 7, 3, 1, 9, 7, 3)
+    check_sum = sum(c * int(n) for n, c in zip(vat[:-1], coefficients))
 
     check = 10 - (check_sum % 10)
     if check == 10:
