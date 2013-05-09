@@ -457,9 +457,8 @@ def finland(vat):
     except ValueError:
         return False
 
-    check_sum = (7 * int(vat[0]) + 9 * int(vat[1]) + 10 * int(vat[2]) +
-                 5 * int(vat[3]) + 8 * int(vat[4]) + 4 * int(vat[5]) +
-                 2 * int(vat[6]))
+    coefficients = (7, 9, 10, 5, 8, 4, 2)
+    check_sum = sum(c * int(n) for n, c in zip(vat[:-1], coefficients))
 
     check = 11 - (check_sum % 11)
     if check == 11:
