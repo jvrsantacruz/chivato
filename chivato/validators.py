@@ -328,9 +328,7 @@ def denmark(vat):
     if int(vat[0]) <= 0:
         return False
 
-    check_sum = (2 * int(vat[0]) + 7 * int(vat[1]) + 6 * int(vat[2]) +
-                 5 * int(vat[3]) + 4 * int(vat[4]) + 3 * int(vat[5]) +
-                 2 * int(vat[6]) + int(vat[7]))
+    check_sum = sum(int(d) * c for d, c in zip(vat, (2, 7, 6, 5, 4, 3, 2, 1)))
 
     if check_sum % 11 != 0:
         return False
@@ -347,9 +345,7 @@ def estonia(vat):
     except ValueError:
         return False
 
-    check_sum = (3 * int(vat[0]) + 7 * int(vat[1]) + 1 * int(vat[2]) +
-                 3 * int(vat[3]) + 7 * int(vat[4]) + 1 * int(vat[5]) +
-                 3 * int(vat[6]) + 7 * int(vat[7]))
+    check_sum = sum(int(d) * c for d, c in zip(vat, (3, 7, 1, 3, 7, 1, 3, 7)))
 
     check = 10 - (check_sum % 10)
     if check == 10:
