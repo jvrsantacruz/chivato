@@ -58,11 +58,9 @@ def argentina(vat):
         return False
 
     base = [5, 4, 3, 2, 7, 6, 5, 4, 3, 2]
-    aux = 0
-    for i in range(10):
-        aux += int(vat[i]) * base[i]
+    aux = sum(int(n) * b for n, b in zip(vat, base))
 
-    aux = 11 - (aux - (int(aux / 11) * 11))
+    aux = 11 - (aux - ((aux // 11) * 11))
     if aux == 11:
         aux = 0
     if aux == 10:
