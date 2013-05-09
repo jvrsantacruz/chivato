@@ -107,9 +107,8 @@ def bulgaria(vat):
             int(vat[1:2]) != 22:
         return False
 
-    check_sum = 4 * int(vat[0]) + 3 * int(vat[1]) + 2 * int(vat[2]) + \
-        7 * int(vat[3]) + 6 * int(vat[4]) + 5 * int(vat[5]) + \
-        4 * int(vat[6]) + 3 * int(vat[7]) + 2 * int(vat[8])
+    coefficients = (4, 3, 2, 7, 6, 5, 4, 3, 2)
+    check_sum = sum(c * int(n) for c, n in zip(coefficients, vat))
 
     check = 11 - (check_sum % 11)
     if check == 11:
