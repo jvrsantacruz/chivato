@@ -741,11 +741,8 @@ def italy(vat):
             or int(vat[7:10]) in (120, 121, 888, 999)):
         return False
 
-    check_sum = (int(vat[0]) + mult_add(2, int(vat[1])) + int(vat[2]) +
-                 mult_add(2, int(vat[3])) + int(vat[4]) +
-                 mult_add(2, int(vat[5])) + int(vat[6]) +
-                 mult_add(2, int(vat[7])) + int(vat[8]) +
-                 mult_add(2, int(vat[9])))
+    check_sum = sum(mult_add(n) if i % 2 else n
+                    for i, n in enumerate(map(int, vat[:10])))
 
     check = 10 - (check_sum % 10)
     if check == 10:
