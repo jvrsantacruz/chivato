@@ -570,9 +570,8 @@ def united_kingdom(vat):
         if len(vat) == 13 and int(vat[12]) != 3:
             return False
 
-        check_sum = (8 * int(vat[3]) + 7 * int(vat[4]) + 6 * int(vat[5]) +
-                     5 * int(vat[6]) + 4 * int(vat[7]) + 3 * int(vat[8]) +
-                     2 * int(vat[9]) + 10 * int(vat[10]) + int(vat[11]))
+        coefficients = (8, 7, 6, 5, 4, 3, 2, 10, 1)
+        check_sum = sum(c * int(n) for n, c in zip(vat[3:12], coefficients))
 
         if check_sum % 97 != 0:
             return False
@@ -593,9 +592,8 @@ def united_kingdom(vat):
         if len(vat) == 10 and int(vat[9]) != 3:
             return False
 
-        check_sum = (8 * int(vat[0]) + 7 * int(vat[1]) + 6 * int(vat[2]) +
-                     5 * int(vat[3]) + 4 * int(vat[4]) + 3 * int(vat[5]) +
-                     2 * int(vat[6]) + 10 * int(vat[7]) + int(vat[8]))
+        coefficients = (8, 7, 6, 5, 4, 3, 2, 10, 1)
+        check_sum = sum(c * int(n) for n, c in zip(vat[:9], coefficients))
 
         if int(vat[0:3]) >= 100:
             if check_sum % 97 not in (0, 55, 42):
