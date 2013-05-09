@@ -175,15 +175,8 @@ def cyprus(vat):
         return False
 
     conv = {0: 1, 1: 0, 2: 5, 3: 7, 4: 9, 5: 13, 6: 15, 7: 17, 8: 19, 9: 21}
-
-    num0, num1, num2, num3, num4, num5, num6, num7 = map(int, vat[:8])
-
-    num0 = conv.get(num0, num0)
-    num2 = conv.get(num2, num2)
-    num4 = conv.get(num4, num4)
-    num6 = conv.get(num6, num6)
-
-    check_sum = num0 + num1 + num2 + num3 + num4 + num5 + num6 + num7
+    check_sum = sum(n if i % 2 else conv.get(n, n)
+                    for i, n in enumerate(map(int, vat[:8])))
 
     check = chr(check_sum % 26 + 65)
     if check != vat[8]:
