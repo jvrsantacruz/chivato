@@ -752,58 +752,30 @@ def italy(vat):
     return True
 
 
-def lithuania(vat):
+def lithuania(vat,
+              coefficients=(1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2),
+              edge_coefficients=(3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4)):
     '''Check Lithuania VAT number.'''
     try:
         _posint(vat)
     except ValueError:
         return False
 
-    if len(vat) == 9:
-        if int(vat[7]) != 1:
-            return False
+    num, control = vat[:-1], int(vat[-1])
 
-        check_sum = (1 * int(vat[0]) + 2 * int(vat[1]) + 3 * int(vat[2]) +
-                     4 * int(vat[3]) + 5 * int(vat[4]) + 6 * int(vat[5]) +
-                     7 * int(vat[6]) + 8 * int(vat[7]))
+    if int(num[-1]) != 1:
+        return False
 
-        if check_sum % 11 == 10:
-            check_sum = (3 * int(vat[0]) + 4 * int(vat[1]) + 5 * int(vat[2]) +
-                         6 * int(vat[3]) + 7 * int(vat[4]) + 8 * int(vat[5]) +
-                         9 * int(vat[6]) + 1 * int(vat[7]))
+    check_sum = sum(i * int(n) for n, i in zip(num, coefficients))
 
-        check = check_sum % 11
-        if check == 10:
-            check = 0
+    if check_sum % 11 == 10:
+        check_sum = sum(i * int(n) for n, i in zip(num, edge_coefficients))
 
-        if check != int(vat[8]):
-            return False
-        return True
+    check = check_sum % 11
+    if check == 10:
+        check = 0
 
-    elif len(vat) == 12:
-        if int(vat[10]) != 1:
-            return False
-
-        check_sum = 1 * int(vat[0]) + 2 * int(vat[1]) + 3 * int(vat[2]) + \
-            4 * int(vat[3]) + 5 * int(vat[4]) + 6 * int(vat[5]) + \
-            7 * int(vat[6]) + 8 * int(vat[7]) + 9 * int(vat[8]) + \
-            1 * int(vat[9]) + 2 * int(vat[10])
-
-        if check_sum % 11 == 10:
-            check_sum = (3 * int(vat[0]) + 4 * int(vat[1]) + 5 * int(vat[2]) +
-                         6 * int(vat[3]) + 7 * int(vat[4]) + 8 * int(vat[5]) +
-                         9 * int(vat[6]) + 1 * int(vat[7]) + 2 * int(vat[8]) +
-                         3 * int(vat[9]) + 4 * int(vat[10]))
-
-        check = check_sum % 11
-        if check == 10:
-            check = 0
-
-        if check != int(vat[11]):
-            return False
-        return True
-
-    return False
+    return check == control
 
 
 def luxembourg(vat):
