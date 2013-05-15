@@ -13,24 +13,19 @@ def austria(vat):
     if vat[0] != 'U':
         return False
 
-    num = vat[1:]
     try:
-        _posint(num)
+        _posint(vat[1:])
     except ValueError:
         return False
 
-    check_sum = sum(mult_add(n) if i % 2 else n
-                    for i, n in enumerate(map(int, num[:-1])))
+    num, control = map(int, vat[1:-1]), int(vat[-1])
+    check_sum = sum(mult_add(n) if i % 2 else n for i, n in enumerate(num))
 
     check = 10 - ((check_sum + 4) % 10)
-
     if check == 10:
         check = 0
 
-    if int(vat[-1:]) != check:
-        return False
-
-    return True
+    return check == control
 
 
 def albania(vat):
