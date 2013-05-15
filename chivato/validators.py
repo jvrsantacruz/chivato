@@ -935,17 +935,15 @@ def portugal(vat):
     if int(vat[0]) <= 0:
         return False
 
-    check_sum = (9 * int(vat[0]) + 8 * int(vat[1]) + 7 * int(vat[2]) +
-                 6 * int(vat[3]) + 5 * int(vat[4]) + 4 * int(vat[5]) +
-                 3 * int(vat[6]) + 2 * int(vat[7]))
+    num, control = vat[:8], int(vat[8])
+    coefficients = (9, 8, 7, 6, 5, 4, 3, 2)
+    check_sum = sum(c * int(n) for c, n in zip(coefficients, num))
 
     check = 11 - (check_sum % 11)
     if check == 10 or check == 11:
         check = 0
 
-    if check != int(vat[8]):
-        return False
-    return True
+    return check == int(control)
 
 
 def romania(vat):
