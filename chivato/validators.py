@@ -808,10 +808,8 @@ def latvia(vat):
         return False
 
     if int(vat[0]) >= 4:
-        check_sum = (9 * int(vat[0]) + 1 * int(vat[1]) + 4 * int(vat[2]) +
-                     8 * int(vat[3]) + 3 * int(vat[4]) + 10 * int(vat[5]) +
-                     2 * int(vat[6]) + 5 * int(vat[7]) + 7 * int(vat[8]) +
-                     6 * int(vat[9]))
+        coefficients = (9, 1, 4, 8, 3, 10, 2, 5, 7, 6)
+        check_sum = sum(c * int(n) for c, n in zip(coefficients, vat[:10]))
 
         if check_sum % 11 == 4 and int(vat[0]) == 9:
             check_sum = check_sum - 45
