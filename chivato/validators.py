@@ -52,8 +52,10 @@ def argentina(vat):
     if len(vat) != 11:
         return False
 
-    base = [5, 4, 3, 2, 7, 6, 5, 4, 3, 2]
-    aux = sum(int(n) * b for n, b in zip(vat, base))
+    num, control = vat[:-1], int(vat[-1])
+
+    coefficients = (5, 4, 3, 2, 7, 6, 5, 4, 3, 2)
+    aux = sum(c * int(n) for c, n in zip(coefficients, num))
 
     aux = 11 - (aux - ((aux // 11) * 11))
     if aux == 11:
@@ -61,7 +63,7 @@ def argentina(vat):
     if aux == 10:
         aux = 9
 
-    return aux == int(vat[10])
+    return aux == control
 
 
 def belgium(vat):
