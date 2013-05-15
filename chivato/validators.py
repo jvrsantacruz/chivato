@@ -961,18 +961,14 @@ def romania(vat):
     if len(vat) >= 2 and len(vat) <= 10:
         vat = (10 - len(vat)) * '0' + vat
 
-        check_sum = (7 * int(vat[0]) + 5 * int(vat[1]) + 3 * int(vat[2]) +
-                     2 * int(vat[3]) + 1 * int(vat[4]) + 7 * int(vat[5]) +
-                     5 * int(vat[6]) + 3 * int(vat[7]) + 2 * int(vat[8]))
+        coefficients = (7, 5, 3, 2, 1, 7, 5, 3, 2)
+        check_sum = sum(c * int(n) for c, n in zip(coefficients, vat[:9]))
 
         check = (check_sum * 10) % 11
         if check == 10:
             check = 0
 
-        if check != int(vat[9]):
-            return False
-
-        return True
+        return check == int(vat[9])
 
     elif len(vat) == 13:
         if int(vat[0]) not in (1, 2, 3, 4, 6):
@@ -997,18 +993,14 @@ def romania(vat):
             if int(vat[5:7]) < 1 or int(vat[5:7]) > 31:
                 return False
 
-        check_sum = (2 * int(vat[0]) + 7 * int(vat[1]) + 9 * int(vat[2]) +
-                     1 * int(vat[3]) + 4 * int(vat[4]) + 6 * int(vat[5]) +
-                     3 * int(vat[6]) + 5 * int(vat[7]) + 8 * int(vat[8]) +
-                     2 * int(vat[9]) + 7 * int(vat[10]) + 9 * int(vat[11]))
+        coefficients = (2, 7, 9, 1, 4, 6, 3, 5, 8, 2, 7, 9)
+        check_sum = sum(c * int(n) for c, n in zip(coefficients, vat[:12]))
 
         check = check_sum % 11
         if check == 10:
             check = 1
 
-        if check != int(vat[12]):
-            return False
-        return True
+        return check == int(vat[12])
 
     return False
 
