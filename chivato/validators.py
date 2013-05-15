@@ -912,17 +912,14 @@ def poland(vat):
     except ValueError:
         return False
 
-    check_sum = (6 * int(vat[0]) + 5 * int(vat[1]) + 7 * int(vat[2]) +
-                 2 * int(vat[3]) + 3 * int(vat[4]) + 4 * int(vat[5]) +
-                 5 * int(vat[6]) + 6 * int(vat[7]) + 7 * int(vat[8]))
+    num, control = vat[:9], int(vat[9])
+
+    coefficients = (6, 5, 7, 2, 3, 4, 5, 6, 7)
+    check_sum = sum(c * int(n) for c, n in zip(coefficients, num))
 
     check = check_sum % 11
-    if check == 10:
-        return False
 
-    if check != int(vat[9]):
-        return False
-    return True
+    return check == control and check != 10
 
 
 def portugal(vat):
