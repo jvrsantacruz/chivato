@@ -857,19 +857,17 @@ def malta(vat):
 
     try:
         _posint(vat)
+        _posint(vat[:6])
     except ValueError:
         return False
 
-    if int(vat[0:6]) < 100000:
-        return False
+    num, control = vat[:6], int(vat[6:8])
 
-    check_sum = (3 * int(vat[0]) + 4 * int(vat[1]) + 6 * int(vat[2]) +
-                 7 * int(vat[3]) + 8 * int(vat[4]) + 9 * int(vat[5]))
+    coefficients = (3, 4, 6, 7, 8, 9)
+    check_sum = sum(c * int(n) for c, n in zip(coefficients, num))
 
     check = 37 - (check_sum % 37)
-    if check != int(vat[6:8]):
-        return False
-    return True
+    return check == control
 
 
 def netherlands(vat):
